@@ -1,7 +1,5 @@
 package br.com.anteros.persistence.serialization.jackson;
 
-import br.com.anteros.persistence.session.SQLSessionFactory;
-
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.AnnotationIntrospector;
 import com.fasterxml.jackson.databind.DeserializationContext;
@@ -75,12 +73,9 @@ public class AnterosPersistenceJacksonModule extends Module {
     
     protected int _moduleFeatures = DEFAULT_FEATURES;
 
-	protected SQLSessionFactory sessionFactory;
-
 	private DeserializationContext deserializationContext;
 
-	public AnterosPersistenceJacksonModule(SQLSessionFactory sessionFactory, DeserializationContext deserializationContext) {
-		this.sessionFactory = sessionFactory;
+	public AnterosPersistenceJacksonModule(DeserializationContext deserializationContext) {
 		this.deserializationContext = deserializationContext;
 	}
 
@@ -101,9 +96,9 @@ public class AnterosPersistenceJacksonModule extends Module {
         if (ai != null) {
             context.appendAnnotationIntrospector(ai);
         }
-        context.addSerializers(new AnterosSerializers(_moduleFeatures, sessionFactory));
-        context.addBeanSerializerModifier(new AnterosSerializerModifier(_moduleFeatures, sessionFactory));
-        context.addBeanDeserializerModifier(new AnterosDeserializarModifier(sessionFactory));
+        context.addSerializers(new AnterosSerializers(_moduleFeatures));
+        context.addBeanSerializerModifier(new AnterosSerializerModifier(_moduleFeatures));
+        context.addBeanDeserializerModifier(new AnterosDeserializarModifier());
     }
 
 

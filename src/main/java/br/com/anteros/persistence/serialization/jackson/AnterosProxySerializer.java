@@ -6,7 +6,6 @@ import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyObject;
 import br.com.anteros.persistence.proxy.AnterosProxyObject;
 import br.com.anteros.persistence.proxy.LazyLoadInterceptor;
-import br.com.anteros.persistence.session.SQLSessionFactory;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -23,13 +22,10 @@ public class AnterosProxySerializer extends JsonSerializer<AnterosProxyObject> {
 
 	protected PropertySerializerMap _dynamicSerializers;
 
-	private SQLSessionFactory sessionFactory;
-
-	public AnterosProxySerializer(boolean forceLazyLoading, SQLSessionFactory sessionFactory) {
+	public AnterosProxySerializer(boolean forceLazyLoading) {
 		_forceLazyLoading = forceLazyLoading;
 		_dynamicSerializers = PropertySerializerMap.emptyMap();
 		_property = null;
-		this.sessionFactory = sessionFactory;
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package br.com.anteros.persistence.serialization.jackson;
 
 import br.com.anteros.persistence.serialization.jackson.AnterosPersistenceJacksonModule.Feature;
-import br.com.anteros.persistence.session.SQLSessionFactory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -9,13 +8,10 @@ public class AnterosObjectMapper extends ObjectMapper {
 
 	private static final long serialVersionUID = 1L;
 
-	protected SQLSessionFactory sessionFactory;
-
 	private AnterosPersistenceJacksonModule module;
 
-	public AnterosObjectMapper(SQLSessionFactory sessionFactory) {
+	public AnterosObjectMapper() {
 		super();
-		this.sessionFactory = sessionFactory; 
 		this.createModule();
 		this.registerModule(module);
 	}
@@ -37,7 +33,7 @@ public class AnterosObjectMapper extends ObjectMapper {
 	}
 	
 	protected void createModule(){
-		this.module = new AnterosPersistenceJacksonModule(sessionFactory, this.getDeserializationContext());
+		this.module = new AnterosPersistenceJacksonModule(this.getDeserializationContext());
 	}
 	
 

@@ -14,10 +14,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.deser.BeanDeserializer;
-import com.fasterxml.jackson.databind.deser.ResolvableDeserializer;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-public class AnterosBeanDeserializer extends StdDeserializer<Object> implements ResolvableDeserializer {
+public class AnterosBeanDeserializer extends StdDeserializer<Object> {
 
 	protected BeanDeserializer delegate;
 
@@ -70,14 +69,5 @@ public class AnterosBeanDeserializer extends StdDeserializer<Object> implements 
 		return result;
 	}
 
-	@Override
-	public Object deserialize(JsonParser jp, DeserializationContext ctxt, Object intoValue) throws IOException,
-			JsonProcessingException {
-		return super.deserialize(jp, ctxt, intoValue);
-	}
-
-	public void resolve(DeserializationContext ctxt) throws JsonMappingException {
-		delegate.resolve(ctxt);
-	}
 
 }

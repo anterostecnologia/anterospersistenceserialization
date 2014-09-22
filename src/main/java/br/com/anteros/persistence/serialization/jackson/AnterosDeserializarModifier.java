@@ -14,8 +14,8 @@ public class AnterosDeserializarModifier extends BeanDeserializerModifier {
 	@Override
 	public JsonDeserializer<?> modifyDeserializer(DeserializationConfig config, BeanDescription beanDesc,
 			JsonDeserializer<?> deserializer) {
-		if ((deserializer instanceof BeanDeserializer) && !(deserializer instanceof AnterosBeanDeserializer))
-			return new AnterosBeanDeserializer((BeanDeserializer) deserializer, beanDesc.getType().getRawClass());
+		//if ((deserializer instanceof BeanDeserializer) && !(deserializer instanceof AnterosBeanDeserializer))
+		//	return new AnterosBeanDeserializer((BeanDeserializer) deserializer, beanDesc.getType().getRawClass());
 
 		return super.modifyDeserializer(config, beanDesc, deserializer);
 	}

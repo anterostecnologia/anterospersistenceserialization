@@ -2,6 +2,7 @@ package br.com.anteros.persistence.serialization.jackson;
 
 import br.com.anteros.persistence.proxy.AnterosProxyObject;
 import br.com.anteros.persistence.serialization.jackson.AnterosPersistenceJacksonModule.Feature;
+import br.com.anteros.persistence.session.SQLSessionFactory;
 
 import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.JavaType;
@@ -14,9 +15,11 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 public class AnterosSerializers extends Serializers.Base
 {
     protected final boolean _forceLoading;
+	private SQLSessionFactory sessionFactory;
     
-    public AnterosSerializers(int features) {
+    public AnterosSerializers(SQLSessionFactory sessionFactory, int features) {
         _forceLoading = Feature.FORCE_LAZY_LOADING.enabledIn(features);
+		this.sessionFactory = sessionFactory;
     }
     
     @Override

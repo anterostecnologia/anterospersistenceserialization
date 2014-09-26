@@ -47,6 +47,7 @@ public class AnterosAnnotatedMemberAdapter extends AnnotatedMember {
 					if (entityCache != null) {
 						DescriptionField descriptionField = entityCache.getDescriptionField(field.getName());
 						if (descriptionField.isMappedBy()) {
+							System.out.println("MANAGED-> "+descriptionField.getField().getName()+"  ->  "+entityCache.getEntityClass().getSimpleName());
 							return (A) new JsonManagedReferenceImpl(descriptionField.getMappedBy());
 						}
 					}
@@ -69,9 +70,11 @@ public class AnterosAnnotatedMemberAdapter extends AnnotatedMember {
 					if (entityCache != null) {
 						DescriptionField descriptionField = entityCache.getDescriptionField(field.getName());
 						if (descriptionField.isRelationShip()) {
+							System.out.println("ACHOU BACK -> "+entityCache.getEntityClass().getSimpleName());
 							EntityCache entityCacheFK = sessionFactory.getEntityCacheManager().getEntityCache(
 									descriptionField.getFieldClass());
-							if (entityCacheFK.hasDescriptionFieldWithMappedBy(descriptionField.getField().getName())) {
+							if (entityCacheFK.hasDescriptionFieldWithMappedBy(entityCache.getEntityClass(), descriptionField.getField().getName())) {
+								System.out.println("BACK->"+descriptionField.getField().getName()+" => entidade "+entityCache.getEntityClass().getSimpleName());
 								return (A) new JsonBackReferenceImpl(descriptionField.getField().getName());
 							}
 						}

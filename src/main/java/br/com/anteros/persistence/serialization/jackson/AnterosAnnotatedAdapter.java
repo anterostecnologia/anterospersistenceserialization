@@ -39,36 +39,6 @@ public class AnterosAnnotatedAdapter extends Annotated {
 		}
 		if (acls.equals(JsonSubTypes.class)) {
 			return processJsonSubTypes(acls);
-		} else if (acls.equals(JsonManagedReference.class)) {
-			if (annotated instanceof AnnotatedMember) {
-				Member member = ((AnnotatedMember) annotated).getMember();
-				if (member instanceof Field) {
-					EntityCache entityCache = sessionFactory.getEntityCacheManager().getEntityCache(
-							member.getDeclaringClass());
-					if (entityCache != null) {
-						DescriptionField descriptionField = entityCache.getDescriptionField(((Field) member).getName());
-						if (descriptionField.isMappedBy()){
-							System.out.println("mapped by "+member.getName()+" -> "+member.getDeclaringClass());
-						}
-
-					}
-				}
-			}
-			return annotated.getAnnotation(acls);
-
-		} else if (acls.equals(JsonBackReference.class)) {
-			if (annotated instanceof AnnotatedMember) {
-				Member member = ((AnnotatedMember) annotated).getMember();
-				EntityCache entityCache = sessionFactory.getEntityCacheManager().getEntityCache(
-						member.getDeclaringClass());
-				if (entityCache != null) {
-					DescriptionField descriptionField = entityCache.getDescriptionField(((Field) member).getName());
-					if (descriptionField.isRelationShip()){
-						System.out.println("foreignKey "+member.getName()+" -> "+member.getDeclaringClass());
-					}
-				}
-			}
-			return annotated.getAnnotation(acls);
 		}
 		return annotated.getAnnotation(acls);
 	}

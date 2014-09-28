@@ -46,7 +46,14 @@ public class AnterosAnnotationIntrospector extends JacksonAnnotationIntrospector
 
 	@Override
 	public TypeResolverBuilder<?> findTypeResolver(MapperConfig<?> config, AnnotatedClass ac, JavaType baseType) {
-		return _findTypeResolver(config, new AnterosAnnotatedAdapter(sessionFactory, ac), baseType);
+		return super.findTypeResolver(config, ac, baseType);
+	}
+	
+	@Override
+	protected TypeResolverBuilder<?> _findTypeResolver(MapperConfig<?> config, Annotated ann, JavaType baseType) {
+		Annotated annotatedAdapter = new AnterosAnnotatedAdapter(sessionFactory, ann);
+		TypeResolverBuilder<?> _findTypeResolver = super._findTypeResolver(config, annotatedAdapter, baseType);
+		return _findTypeResolver;
 	}
 
 	@Override

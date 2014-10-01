@@ -1,6 +1,5 @@
 package br.com.anteros.persistence.serialization.jackson;
 
-import br.com.anteros.persistence.serialization.jackson.AnterosPersistenceJacksonModule.Feature;
 import br.com.anteros.persistence.session.SQLSessionFactory;
 
 import com.fasterxml.jackson.databind.BeanDescription;

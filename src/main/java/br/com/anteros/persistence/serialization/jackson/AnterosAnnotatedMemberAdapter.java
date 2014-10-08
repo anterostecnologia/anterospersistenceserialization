@@ -45,9 +45,15 @@ public class AnterosAnnotatedMemberAdapter extends AnnotatedMember {
 					EntityCache entityCache = sessionFactory.getEntityCacheManager().getEntityCache(
 							member.getDeclaringClass());
 					if (entityCache != null) {
-						DescriptionField descriptionField = entityCache.getDescriptionField(field.getName());
-						if (descriptionField.isMappedBy()) {
-							return (A) new JsonManagedReferenceImpl(descriptionField.getMappedBy());
+						EntityCache caches[] = { entityCache };
+						if (entityCache.isAbstractClass())
+							caches = sessionFactory.getEntityCacheManager().getEntitiesBySuperClassIncluding(
+									entityCache);
+						for (EntityCache cache : caches) {
+							DescriptionField descriptionField = cache.getDescriptionField(field.getName());
+							if (descriptionField.isMappedBy()) {
+								return (A) new JsonManagedReferenceImpl(descriptionField.getMappedBy());
+							}
 						}
 					}
 				}
@@ -71,8 +77,15 @@ public class AnterosAnnotatedMemberAdapter extends AnnotatedMember {
 						if (descriptionField.isRelationShip()) {
 							EntityCache entityCacheFK = sessionFactory.getEntityCacheManager().getEntityCache(
 									descriptionField.getFieldClass());
-							if (entityCacheFK.hasDescriptionFieldWithMappedBy(entityCache.getEntityClass(), descriptionField.getField().getName())) {
-								return (A) new JsonBackReferenceImpl(descriptionField.getField().getName());
+							EntityCache caches[] = { entityCacheFK };
+							if (entityCacheFK.isAbstractClass())
+								caches = sessionFactory.getEntityCacheManager().getEntitiesBySuperClassIncluding(
+										entityCacheFK);
+							for (EntityCache cache : caches) {
+								if (cache.hasDescriptionFieldWithMappedBy(entityCache.getEntityClass(),
+										descriptionField.getField().getName())) {
+									return (A) new JsonBackReferenceImpl(descriptionField.getField().getName());
+								}
 							}
 						}
 					}

@@ -62,13 +62,6 @@ public class AnterosAnnotationIntrospector extends JacksonAnnotationIntrospector
 		return super.findSubtypes(new AnterosAnnotatedAdapter(sessionFactory, a));
 	}
 	
-//	@Override
-//	public ReferenceProperty findReferenceType(AnnotatedMember member) {
-//		ReferenceProperty ref = super.findReferenceType(new AnterosAnnotatedMemberAdapter(sessionFactory, member));
-//		return ref;
-//	}
-	
-	
 	@Override
 	public ObjectIdInfo findObjectIdInfo(Annotated ann) {
 		return super.findObjectIdInfo(new AnterosAnnotatedAdapter(sessionFactory, ann));

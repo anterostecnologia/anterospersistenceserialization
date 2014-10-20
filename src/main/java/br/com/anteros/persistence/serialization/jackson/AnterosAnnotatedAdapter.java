@@ -45,7 +45,7 @@ public class AnterosAnnotatedAdapter extends Annotated {
 	}
 
 	protected <A extends Annotation> A processJsonIdentityInfo(Class<A> acls) {
-		if (acls.isAnnotationPresent(Entity.class))
+		if (annotated.getAnnotation(Entity.class) != null)
 			return  (A) new JsonIdentityInfoImpl();
 		else
 			return null;

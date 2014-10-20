@@ -2,8 +2,6 @@ package br.com.anteros.persistence.serialization.jackson;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Field;
-import java.lang.reflect.Member;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,15 +9,15 @@ import java.util.List;
 import br.com.anteros.persistence.metadata.EntityCache;
 import br.com.anteros.persistence.metadata.annotation.DiscriminatorColumn;
 import br.com.anteros.persistence.metadata.annotation.DiscriminatorValue;
-import br.com.anteros.persistence.metadata.descriptor.DescriptionField;
+import br.com.anteros.persistence.metadata.annotation.Entity;
 import br.com.anteros.persistence.session.SQLSessionFactory;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.introspect.Annotated;
-import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.introspect.AnnotationMap;
 
 public class AnterosAnnotatedAdapter extends Annotated {
@@ -40,7 +38,17 @@ public class AnterosAnnotatedAdapter extends Annotated {
 		if (acls.equals(JsonSubTypes.class)) {
 			return processJsonSubTypes(acls);
 		}
+		if (acls.equals(JsonIdentityInfo.class)) {
+			return processJsonIdentityInfo(acls);
+		}
 		return annotated.getAnnotation(acls);
+	}
+
+	protected <A extends Annotation> A processJsonIdentityInfo(Class<A> acls) {
+		if (acls.isAnnotationPresent(Entity.class))
+			return  (A) new JsonIdentityInfoImpl();
+		else
+			return null;
 	}
 
 	protected <A extends Annotation> A processJsonSubTypes(Class<A> acls) {
@@ -125,6 +133,26 @@ public class AnterosAnnotatedAdapter extends Annotated {
 
 		public boolean visible() {
 			return false;
+		}
+
+	}
+
+	class JsonIdentityInfoImpl implements JsonIdentityInfo {
+
+		public Class<? extends Annotation> annotationType() {
+			return JsonIdentityInfo.class;
+		}
+
+		public String property() {
+			return "@id";
+		}
+
+		public Class<? extends ObjectIdGenerator<?>> generator() {
+			return ObjectIdGenerators.IntSequenceGenerator.class;
+		}
+
+		public Class<?> scope() {
+			return Object.class;
 		}
 
 	}

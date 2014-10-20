@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.fasterxml.jackson.databind.introspect.AnnotatedClass;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
+import com.fasterxml.jackson.databind.introspect.ObjectIdInfo;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import com.fasterxml.jackson.databind.jsontype.TypeResolverBuilder;
 
@@ -60,9 +61,21 @@ public class AnterosAnnotationIntrospector extends JacksonAnnotationIntrospector
 	public List<NamedType> findSubtypes(Annotated a) {
 		return super.findSubtypes(new AnterosAnnotatedAdapter(sessionFactory, a));
 	}
+	
+//	@Override
+//	public ReferenceProperty findReferenceType(AnnotatedMember member) {
+//		ReferenceProperty ref = super.findReferenceType(new AnterosAnnotatedMemberAdapter(sessionFactory, member));
+//		return ref;
+//	}
+	
+	
 	@Override
-	public ReferenceProperty findReferenceType(AnnotatedMember member) {
-		ReferenceProperty ref = super.findReferenceType(new AnterosAnnotatedMemberAdapter(sessionFactory, member));
-		return ref;
+	public ObjectIdInfo findObjectIdInfo(Annotated ann) {
+		return super.findObjectIdInfo(new AnterosAnnotatedAdapter(sessionFactory, ann));
+	}
+	
+	@Override
+	public ObjectIdInfo findObjectReferenceInfo(Annotated ann, ObjectIdInfo objectIdInfo) {
+		return super.findObjectReferenceInfo(new AnterosAnnotatedAdapter(sessionFactory, ann), objectIdInfo);
 	}
 }

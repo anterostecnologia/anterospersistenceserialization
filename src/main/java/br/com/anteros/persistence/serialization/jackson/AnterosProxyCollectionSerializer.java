@@ -22,14 +22,14 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.jsontype.TypeSerializer;
 import com.fasterxml.jackson.databind.ser.ContextualSerializer;
 
-public class AnterosProxyAndCollectionSerializer extends JsonSerializer<Object> implements ContextualSerializer {
+public class AnterosProxyCollectionSerializer extends JsonSerializer<Object> implements ContextualSerializer {
 	protected final int _features;
 
 	protected final JsonSerializer<Object> _serializer;
 	protected final SQLSessionFactory _sessionFactory;
 
 	@SuppressWarnings("unchecked")
-	public AnterosProxyAndCollectionSerializer(JsonSerializer<?> serializer, int features,
+	public AnterosProxyCollectionSerializer(JsonSerializer<?> serializer, int features,
 			SQLSessionFactory sessionFactory) {
 		_serializer = (JsonSerializer<Object>) serializer;
 		_features = features;
@@ -148,7 +148,7 @@ public class AnterosProxyAndCollectionSerializer extends JsonSerializer<Object> 
 			return ser;
 		}
 		if (ser != _serializer) {
-			return new AnterosProxyAndCollectionSerializer(ser, _features, _sessionFactory);
+			return new AnterosProxyCollectionSerializer(ser, _features, _sessionFactory);
 		}
 		return this;
 	}

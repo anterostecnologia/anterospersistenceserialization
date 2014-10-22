@@ -92,6 +92,8 @@ public class AnterosPersistenceJacksonModule extends Module {
 
 	private AnterosSerializerModifier anterosSerializerModifier;
 
+	private AnterosSerializers anterosSerializers;
+
 	public AnterosPersistenceJacksonModule(SQLSessionFactory sessionFactory,
 			DeserializationContext deserializationContext) {
 		this.deserializationContext = deserializationContext;
@@ -116,7 +118,9 @@ public class AnterosPersistenceJacksonModule extends Module {
 	public void setupModule(SetupContext context) {
 		context.appendAnnotationIntrospector(annotationIntrospector());
 		anterosSerializerModifier = new AnterosSerializerModifier(_moduleFeatures, sessionFactory);
+		anterosSerializers = new AnterosSerializers(_moduleFeatures);
 		context.addBeanSerializerModifier(anterosSerializerModifier);
+		context.addSerializers(anterosSerializers);
 	}
 
 	protected AnnotationIntrospector annotationIntrospector() {
@@ -129,6 +133,8 @@ public class AnterosPersistenceJacksonModule extends Module {
 		_moduleFeatures |= f.getMask();
 		if (anterosSerializerModifier != null)
 			anterosSerializerModifier.setFeatures(_moduleFeatures);
+		if (anterosSerializers!=null)
+			anterosSerializers.setForceLoading(Feature.FORCE_LAZY_LOADING.enabledIn(_moduleFeatures));
 		return this;
 	}
 

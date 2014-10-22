@@ -21,14 +21,15 @@ public class AnterosSerializerModifier extends BeanSerializerModifier {
 	@Override
 	public JsonSerializer<?> modifyCollectionSerializer(SerializationConfig config, CollectionType valueType,
 			BeanDescription beanDesc, JsonSerializer<?> serializer) {
-		return new AnterosProxyAndCollectionSerializer(serializer, _features, _sessionFactory);
+		return new AnterosProxyCollectionSerializer(serializer, _features, _sessionFactory);
 	}
 
 	@Override
 	public JsonSerializer<?> modifyMapSerializer(SerializationConfig config, MapType valueType,
 			BeanDescription beanDesc, JsonSerializer<?> serializer) {
-		return new AnterosProxyAndCollectionSerializer(serializer, _features, _sessionFactory);
+		return new AnterosProxyCollectionSerializer(serializer, _features, _sessionFactory);
 	}
+
 
 	public int getFeatures() {
 		return _features;

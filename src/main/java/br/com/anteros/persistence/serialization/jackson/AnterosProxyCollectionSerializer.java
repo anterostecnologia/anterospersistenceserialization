@@ -1,15 +1,20 @@
 package br.com.anteros.persistence.serialization.jackson;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationHandler;
 
 import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyObject;
 import br.com.anteros.persistence.metadata.annotation.Fetch;
 import br.com.anteros.persistence.metadata.annotation.type.FetchMode;
 import br.com.anteros.persistence.metadata.annotation.type.FetchType;
+import br.com.anteros.persistence.proxy.AnterosProxyLob;
 import br.com.anteros.persistence.proxy.AnterosProxyObject;
-import br.com.anteros.persistence.proxy.ProxyLazyLoadInterceptor;
+import br.com.anteros.persistence.proxy.JavassistLazyLoadInterceptor;
 import br.com.anteros.persistence.proxy.collection.AnterosPersistentCollection;
+import br.com.anteros.persistence.proxy.lob.BlobLazyLoadProxy;
+import br.com.anteros.persistence.proxy.lob.ClobLazyLoadProxy;
+import br.com.anteros.persistence.proxy.lob.NClobLazyLoadProxy;
 import br.com.anteros.persistence.serialization.jackson.AnterosPersistenceJacksonModule.Feature;
 import br.com.anteros.persistence.session.SQLSessionFactory;
 
@@ -29,8 +34,7 @@ public class AnterosProxyCollectionSerializer extends JsonSerializer<Object> imp
 	protected final SQLSessionFactory _sessionFactory;
 
 	@SuppressWarnings("unchecked")
-	public AnterosProxyCollectionSerializer(JsonSerializer<?> serializer, int features,
-			SQLSessionFactory sessionFactory) {
+	public AnterosProxyCollectionSerializer(JsonSerializer<?> serializer, int features, SQLSessionFactory sessionFactory) {
 		_serializer = (JsonSerializer<Object>) serializer;
 		_features = features;
 		_sessionFactory = sessionFactory;
@@ -152,15 +156,16 @@ public class AnterosProxyCollectionSerializer extends JsonSerializer<Object> imp
 		}
 		return this;
 	}
-	
-	protected Object findProxied(Object value) throws Exception {
-		MethodHandler handler = ((ProxyObject)value).getHandler();
-		if (!(handler instanceof ProxyLazyLoadInterceptor))
-			return null;
 
-		if (!Feature.FORCE_LAZY_LOADING.enabledIn(_features) && !((ProxyLazyLoadInterceptor) (handler)).isInitialized()) {
-			return null;
+	protected Object findProxied(Object value) throws Exception {
+		if (value instanceof AnterosProxyObject) {
+			if (!Feature.FORCE_LAZY_LOADING.enabledIn(_features)
+					&& !((AnterosProxyObject) (value)).isInitialized()) {
+				return null;
+			}
+			return ((AnterosProxyObject) (value)).initializeAndReturnObject();
 		}
-		return ((ProxyLazyLoadInterceptor) (handler)).initializeAndReturnObject();
+		
+		return null;
 	}
 }

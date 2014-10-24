@@ -5,7 +5,8 @@ import java.io.IOException;
 import javassist.util.proxy.MethodHandler;
 import javassist.util.proxy.ProxyObject;
 import br.com.anteros.persistence.proxy.AnterosProxyObject;
-import br.com.anteros.persistence.proxy.ProxyLazyLoadInterceptor;
+import br.com.anteros.persistence.proxy.JavassistLazyLoadInterceptor;
+import br.com.anteros.persistence.serialization.jackson.AnterosPersistenceJacksonModule.Feature;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -81,13 +82,12 @@ public class AnterosProxySerializer extends JsonSerializer<AnterosProxyObject> {
 	}
 
 	protected Object findProxied(AnterosProxyObject value) throws Exception {
-		MethodHandler handler = ((ProxyObject) value).getHandler();
-		if (!(handler instanceof ProxyLazyLoadInterceptor))
-			return null;
-
-		if (!_forceLazyLoading && !((ProxyLazyLoadInterceptor) (handler)).isInitialized()) {
-			return null;
+		if (value instanceof AnterosProxyObject) {
+			if (!_forceLazyLoading && !((AnterosProxyObject) (value)).isInitialized()) {
+				return null;
+			}
+			return ((AnterosProxyObject) (value)).initializeAndReturnObject();
 		}
-		return ((ProxyLazyLoadInterceptor) (handler)).initializeAndReturnObject();
+		return null;
 	}
 }

@@ -31,7 +31,7 @@
 
 		<dependency>
 			<groupId>br.com.anteros</groupId>
-			<artifactId>Anteros-Persistence</artifactId>
+			<artifactId>Anteros-Persistence-Core</artifactId>
 			<version>LATEST</version>
 		</dependency>
 	</dependencies>

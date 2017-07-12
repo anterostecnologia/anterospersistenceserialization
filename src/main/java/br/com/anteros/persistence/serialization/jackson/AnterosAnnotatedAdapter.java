@@ -163,7 +163,7 @@ public class AnterosAnnotatedAdapter extends Annotated {
 		}
 
 		public Class<? extends ObjectIdGenerator<?>> generator() {
-			return ObjectIdGenerators.IntSequenceGenerator.class;
+			return ObjectIdGenerators.UUIDGenerator.class;
 		}
 
 		public Class<?> scope() {

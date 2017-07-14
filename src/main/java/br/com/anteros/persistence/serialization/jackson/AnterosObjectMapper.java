@@ -18,6 +18,8 @@ package br.com.anteros.persistence.serialization.jackson;
 import br.com.anteros.persistence.serialization.jackson.AnterosPersistenceJacksonModule.Feature;
 import br.com.anteros.persistence.session.SQLSessionFactory;
 
+import java.text.SimpleDateFormat;
+
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -35,6 +37,8 @@ public class AnterosObjectMapper extends ObjectMapper {
 		this.createModule();
 		this.registerModule(module);
 		this.enable(SerializationFeature.INDENT_OUTPUT);
+		this.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+		this.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS"));
 		this.setSerializationInclusion(Include.NON_NULL);
 	}
 

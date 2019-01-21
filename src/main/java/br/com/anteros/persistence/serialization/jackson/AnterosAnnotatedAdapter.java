@@ -32,6 +32,9 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.ObjectIdResolver;
+import com.fasterxml.jackson.annotation.SimpleObjectIdResolver;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.introspect.Annotated;
 import com.fasterxml.jackson.databind.introspect.AnnotationMap;
 
@@ -84,10 +87,10 @@ public class AnterosAnnotatedAdapter extends Annotated {
 			return annotated.getAnnotation(acls);
 	}
 
-	@Override
-	public Annotated withAnnotations(AnnotationMap fallback) {
-		return annotated.withAnnotations(fallback);
-	}
+//	@Override
+//	public Annotated withAnnotations(AnnotationMap fallback) {
+//		return annotated.withAnnotations(fallback);
+//	}
 
 	@Override
 	public AnnotatedElement getAnnotated() {
@@ -119,10 +122,10 @@ public class AnterosAnnotatedAdapter extends Annotated {
 		return annotated.annotations();
 	}
 
-	@Override
-	protected AnnotationMap getAllAnnotations() {
-		throw new RuntimeException("Not implemented method.");
-	}
+//	@Override
+//	protected AnnotationMap getAllAnnotations() {
+//		throw new RuntimeException("Not implemented method.");
+//	}
 
 	class JsonTypeInfoImpl implements JsonTypeInfo {
 
@@ -168,6 +171,11 @@ public class AnterosAnnotatedAdapter extends Annotated {
 
 		public Class<?> scope() {
 			return Object.class;
+		}
+
+		@Override
+		public Class<? extends ObjectIdResolver> resolver() {
+			return SimpleObjectIdResolver.class;
 		}
 
 	}
@@ -225,6 +233,42 @@ public class AnterosAnnotatedAdapter extends Annotated {
 			return _name;
 		}
 
+	}
+
+	@Override
+	public boolean hasAnnotation(Class<?> acls) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean hasOneOf(Class<? extends Annotation>[] annoClasses) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public JavaType getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

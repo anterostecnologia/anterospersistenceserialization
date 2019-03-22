@@ -87,7 +87,7 @@ public class AnterosAnnotatedAdapter extends Annotated {
 			return annotated.getAnnotation(acls);
 	}
 
-//	@Override
+//
 //	public Annotated withAnnotations(AnnotationMap fallback) {
 //		return annotated.withAnnotations(fallback);
 //	}
@@ -150,7 +150,7 @@ public class AnterosAnnotatedAdapter extends Annotated {
 		}
 
 		public boolean visible() {
-			return false;
+			return true;
 		}
 
 	}

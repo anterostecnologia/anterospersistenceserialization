@@ -42,6 +42,7 @@ public class AnterosObjectMapper extends ObjectMapper {
 		this.setDateFormat(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS"));
 		this.setSerializationInclusion(Include.NON_NULL);
 		this.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
+		this.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 	}
 
 	public AnterosPersistenceJacksonModule getModule() {

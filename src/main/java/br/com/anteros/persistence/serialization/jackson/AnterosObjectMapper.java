@@ -15,26 +15,16 @@
  *******************************************************************************/
 package br.com.anteros.persistence.serialization.jackson;
 
-import java.io.DataOutput;
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.Writer;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import br.com.anteros.persistence.serialization.jackson.AnterosPersistenceJacksonModule.Feature;
 import br.com.anteros.persistence.session.SQLSessionFactory;
-import br.com.anteros.persistence.session.repository.Page;
 
 public class AnterosObjectMapper extends ObjectMapper {
 
@@ -54,6 +44,7 @@ public class AnterosObjectMapper extends ObjectMapper {
 		this.setSerializationInclusion(Include.NON_NULL);
 		this.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		this.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+		this.enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION);
 	}
 
 	public AnterosPersistenceJacksonModule getModule() {

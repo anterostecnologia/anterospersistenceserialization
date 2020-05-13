@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.anteros</groupId>
 	<artifactId>Anteros-Persistence-Serialization</artifactId>
-	<version>1.0.9</version>
+	<version>1.0.10</version>
 
 	<properties>
 		<java.versao>1.7</java.versao>

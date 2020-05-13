@@ -311,6 +311,12 @@
 					</plugins>
 				</pluginManagement>
 			</build>
+			<distributionManagement>
+				<repository>
+					<id>local-REPO</id>
+					<url>http://vps4657.publiccloud.com.br:8082/artifactory/libs-release-local</url>
+				</repository>
+			</distributionManagement>
 		</profile>
 	</profiles>
 </project>

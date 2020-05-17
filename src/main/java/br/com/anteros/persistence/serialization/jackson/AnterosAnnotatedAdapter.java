@@ -17,15 +17,8 @@ package br.com.anteros.persistence.serialization.jackson;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import br.com.anteros.persistence.metadata.EntityCache;
-import br.com.anteros.persistence.metadata.annotation.DiscriminatorColumn;
-import br.com.anteros.persistence.metadata.annotation.DiscriminatorValue;
-import br.com.anteros.persistence.metadata.annotation.Entity;
-import br.com.anteros.persistence.session.SQLSessionFactory;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
@@ -36,7 +29,12 @@ import com.fasterxml.jackson.annotation.ObjectIdResolver;
 import com.fasterxml.jackson.annotation.SimpleObjectIdResolver;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.introspect.Annotated;
-import com.fasterxml.jackson.databind.introspect.AnnotationMap;
+
+import br.com.anteros.persistence.metadata.EntityCache;
+import br.com.anteros.persistence.metadata.annotation.DiscriminatorColumn;
+import br.com.anteros.persistence.metadata.annotation.DiscriminatorValue;
+import br.com.anteros.persistence.metadata.annotation.Entity;
+import br.com.anteros.persistence.session.SQLSessionFactory;
 
 public class AnterosAnnotatedAdapter extends Annotated {
 
@@ -107,10 +105,7 @@ public class AnterosAnnotatedAdapter extends Annotated {
 		return annotated.getName();
 	}
 
-	@Override
-	public Type getGenericType() {
-		return annotated.getGenericType();
-	}
+	
 
 	@Override
 	public Class<?> getRawType() {
@@ -249,8 +244,7 @@ public class AnterosAnnotatedAdapter extends Annotated {
 
 	@Override
 	public JavaType getType() {
-		// TODO Auto-generated method stub
-		return null;
+		return annotated.getType();
 	}
 
 	@Override

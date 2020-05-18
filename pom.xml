@@ -13,7 +13,7 @@
 		<bintray.package>anteros-persistence-serialization</bintray.package>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<jackson.version>2.9.10</jackson.version>
+		<jackson.version>2.11.0</jackson.version>
 	</properties>
 
 	<name>Anteros Persistence Serialization</name>

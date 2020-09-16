@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.anteros</groupId>
 	<artifactId>Anteros-Persistence-Serialization</artifactId>
-	<version>1.0.13</version>
+	<version>1.0.14</version>
 
 	<properties>
 		<java.versao>1.8</java.versao>
@@ -84,18 +84,7 @@
 		</dependency>
 	</dependencies>
 	
-	<repositories>
-		<repository>
-			<id>local-REPO</id>
-			<url>http://vps4657.publiccloud.com.br:8082/artifactory/libs-release/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
+	
 
 	<profiles>
 		<profile>
@@ -324,12 +313,6 @@
 					</plugins>
 				</pluginManagement>
 			</build>
-			<distributionManagement>
-				<repository>
-					<id>local-REPO</id>
-					<url>http://vps4657.publiccloud.com.br:8082/artifactory/libs-release-local</url>
-				</repository>
-			</distributionManagement>
 		</profile>
 	</profiles>
 </project>

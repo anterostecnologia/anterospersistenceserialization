@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.module.afterburner.AfterburnerModule;
 
 import br.com.anteros.persistence.serialization.jackson.AnterosPersistenceJacksonModule.Feature;
 import br.com.anteros.persistence.session.SQLSessionFactory;
@@ -45,6 +46,7 @@ public class AnterosObjectMapper extends ObjectMapper {
 		this.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
 		this.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
 		this.enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION);
+		this.registerModule(new AfterburnerModule());
 	}
 
 	public AnterosPersistenceJacksonModule getModule() {

@@ -36,7 +36,7 @@ public class AnterosProxySerializer extends JsonSerializer<AnterosProxyObject> {
 
 	public AnterosProxySerializer(boolean forceLazyLoading) {
 		_forceLazyLoading = forceLazyLoading;
-		_dynamicSerializers = PropertySerializerMap.emptyMap();
+		_dynamicSerializers = PropertySerializerMap.emptyForProperties();
 		_property = null;
 	}
 

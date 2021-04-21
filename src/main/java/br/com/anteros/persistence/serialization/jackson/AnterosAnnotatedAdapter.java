@@ -228,11 +228,16 @@ public class AnterosAnnotatedAdapter extends Annotated {
 			return _name;
 		}
 
+		@Override
+		public String[] names() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 	}
 
 	@Override
 	public boolean hasAnnotation(Class<?> acls) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

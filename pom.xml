@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.anteros</groupId>
 	<artifactId>Anteros-Persistence-Serialization</artifactId>
-	<version>1.0.16</version>
+	<version>1.0.17</version>
 
 	<properties>
 		<java.versao>1.8</java.versao>
@@ -14,7 +14,7 @@
 		<bintray.package>anteros-persistence-serialization</bintray.package>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<jackson.version>2.9.10</jackson.version>
+		<jackson.version>2.12.2</jackson.version>
 	</properties>
 
 	<name>Anteros Persistence Serialization</name>
@@ -71,7 +71,11 @@
 			<artifactId>jackson-annotations</artifactId>
 			<version>${jackson.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.fasterxml.jackson.module</groupId>
+			<artifactId>jackson-module-afterburner</artifactId>
+			<version>${jackson.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>br.com.anteros</groupId>
 			<artifactId>Anteros-Core</artifactId>

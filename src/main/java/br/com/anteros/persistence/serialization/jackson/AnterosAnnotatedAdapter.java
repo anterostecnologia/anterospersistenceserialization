@@ -230,8 +230,7 @@ public class AnterosAnnotatedAdapter extends Annotated {
 
 		@Override
 		public String[] names() {
-			// TODO Auto-generated method stub
-			return null;
+			return new String[]{};
 		}
 
 	}
@@ -267,7 +266,7 @@ public class AnterosAnnotatedAdapter extends Annotated {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 }
